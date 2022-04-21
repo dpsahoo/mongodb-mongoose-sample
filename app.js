@@ -23,9 +23,9 @@ const Fruit = mongoose.model("Fruit", fruitSchema);
 
 // Build a sample document as per the above specification (Collection + Schema)
 const fruit = new Fruit({
-    name: "Apple",
-    rating: 7,
-    review: "Pretty solid as a fruit!"
+    name: "Mango",
+    rating: 10,
+    review: "King of all fruits!"
 });
 
 fruit.save();
@@ -35,17 +35,18 @@ fruit.save();
 // People Schema
 const peopleSchema = new mongoose.Schema({
     name: String,
-    age: Number
+    age: Number,
+    favouriteFruit: fruitSchema
 });
 
 // People Model/Collection
 const Person = mongoose.model("Person", peopleSchema);
 
-// Create a new person
-const person = new Person({
-    name: "Durga",
-    age: 40
-});
+// // Create a new person
+// const person = new Person({
+//     name: "Durga",
+//     age: 40
+// });
 
 // person.save();
 
@@ -71,17 +72,34 @@ const person = new Person({
 // });
 
 
-// --test Model.find()--
-Person.find(function(err, people){
-    if (err) { 
-        console.log(err) 
-    } else {
-        mongoose.connection.close();        // close the DB connection once the find() is successful.
+// // --test Model.find()--
+// Person.find(function(err, people){
+//     if (err) { 
+//         console.log(err) 
+//     } else {
+//         mongoose.connection.close();        // close the DB connection once the find() is successful.
 
-        people.forEach( person => {
-            console.log(person.name);    
-        });
+//         people.forEach( person => {
+//             console.log(person.name);    
+//         });
         
+//     }
+// });
+
+// --test Model.updateOne()
+Person.updateOne({name: 'Durga'}, {favouriteFruit: fruit} , function(err) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("Successfully updated fave fruit !");
     }
 });
 
+// // --test Model.delete()
+// Person.deleteOne({_id: '6260c8d4532489432784c44d'}, function(err) {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         console.log("Successfully deleted the document!");
+//     }
+// });
