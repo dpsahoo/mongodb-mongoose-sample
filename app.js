@@ -43,26 +43,38 @@ const person = new Person({
 // person.save();
 
 
-// --Test Model.insertMany() function--
-// Ingest multiple persons into the People collection/model
+// // --Test Model.insertMany() function--
+// // Ingest multiple persons into the People collection/model
 
-// Build the documents
-const Prasad = new Person({name: "Prasad", age: 25});
-const Sahoo = new Person({name: "Nirakar Sahoo", age: 60});
-const Manjula = new Person({name: "Manjulata Sahoo", age: 59});
-const Jeetu = new Person({name: "Jeetu", age: 37});
+// // Build the documents
+// const Prasad = new Person({name: "Prasad", age: 25});
+// const Sahoo = new Person({name: "Nirakar Sahoo", age: 60});
+// const Manjula = new Person({name: "Manjulata Sahoo", age: 59});
+// const Jeetu = new Person({name: "Jeetu", age: 37});
 
-const family = [Prasad, Sahoo, Manjula, Jeetu];     // Build an array
+// const family = [Prasad, Sahoo, Manjula, Jeetu];     // Build an array
 
-// Execute insertMany function
-Person.insertMany(family, function(err){
-    if (err) {
-        console.log("Error in loading. " + err);
+// // Execute insertMany function
+// Person.insertMany(family, function(err){
+//     if (err) {
+//         console.log("Error in loading. " + err);
+//     } else {
+//         console.log("Successfully added new people to the Person collection");
+//     }
+// });
+
+
+// --test Model.find()--
+Person.find(function(err, people){
+    if (err) { 
+        console.log(err) 
     } else {
-        console.log("Successfully added new people to the Person collection");
+        mongoose.connection.close();        // close the DB connection once the find() is successful.
+
+        people.forEach( person => {
+            console.log(person.name);    
+        });
+        
     }
 });
-
-
-
 
