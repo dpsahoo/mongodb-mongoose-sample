@@ -6,8 +6,15 @@ mongoose.connect("mongodb://localhost:27017/fruitsDB", {useNewUrlParser: true});
 
 // Establish the schema of the document i.e. how the document should be structured
 const fruitSchema = new mongoose.Schema({
-    name: String,
-    rating: Number,
+    name: {
+        type: String,
+        required: [true, "Plz check your entry. No name specified!"]
+    },
+    rating: {
+        type: Number,
+        min: 1,
+        max: 10
+    },
     review: String
 });
 
@@ -21,7 +28,7 @@ const fruit = new Fruit({
     review: "Pretty solid as a fruit!"
 });
 
-// fruit.save();
+fruit.save();
 
 // --New Collection of People--
 
